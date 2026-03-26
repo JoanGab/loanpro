@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<title>LoanPro</title>
+<title>JoanSystem</title>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0a0f1e;--bg2:#0f1629;--bg3:#141d35;--card:#161f38;--card2:#1c2844;--accent:#00e5b0;--accent2:#0095ff;--warn:#ffb020;--danger:#ff4444;--text:#e8edf7;--text2:#8896b3;--text3:#4a5878;--border:#1e2d4d;--border2:#263352;}
@@ -128,20 +128,19 @@ html,body{height:100%;background:var(--bg);font-family:'Sora',sans-serif;color:v
 <body>
 <!-- LOADING -->
 <div class="loading" id="loading">
-  <div style="font-size:36px;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">LoanPro</div>
+  <div style="font-size:36px;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">JoanSystem</div>
   <div class="spinner"></div>
   <div style="font-size:12px;color:var(--text2)" id="loading-msg">Iniciando...</div>
 </div>
 <!-- LOGIN -->
 <div class="login-screen hidden" id="login-screen">
-  <div class="login-logo">LoanPro</div>
+  <div class="login-logo">JoanSystem</div>
   <div class="login-sub">Sistema de Préstamos</div>
   <div class="login-box">
     <div class="login-err" id="login-err">Usuario o contraseña incorrectos</div>
     <div class="fg"><label class="fl">Usuario</label><input class="fi" id="login-user" placeholder="usuario" autocomplete="username" autocapitalize="none" spellcheck="false"></div>
     <div class="fg"><label class="fl">Contraseña</label><input class="fi" id="login-pass" type="password" placeholder="••••••"></div>
     <button class="btn btn-p" id="btn-login" style="margin-top:4px;">Entrar →</button>
-    <div style="text-align:center;margin-top:16px;font-size:11px;color:var(--text3);">Primera vez: <b style="color:var(--text2)">admin</b> / <b style="color:var(--text2)">admin123</b></div>
   </div>
 </div>
 <!-- MODALES -->
@@ -154,7 +153,7 @@ html,body{height:100%;background:var(--bg);font-family:'Sora',sans-serif;color:v
 <!-- APP -->
 <div class="app hidden" id="app">
   <div class="screen active" id="sc-inicio">
-    <div class="hdr"><div><div class="hdr-logo">LoanPro</div><div class="hdr-sub" id="hdr-date"></div></div><div style="display:flex;gap:6px;align-items:center;"><div class="icon-btn" id="btn-user-menu" style="font-size:13px;font-weight:700;width:auto;padding:0 10px;color:var(--accent);">👤 <span id="hdr-uname">—</span></div><div class="icon-btn" id="btn-new-p-hdr">➕</div></div></div>
+    <div class="hdr"><div><div class="hdr-logo">JoanSystem</div><div class="hdr-sub" id="hdr-date"></div></div><div style="display:flex;gap:6px;align-items:center;"><div class="icon-btn" id="btn-user-menu" style="font-size:13px;font-weight:700;width:auto;padding:0 10px;color:var(--accent);">👤 <span id="hdr-uname">—</span></div><div class="icon-btn" id="btn-new-p-hdr">➕</div></div></div>
     <div class="content fade-in"><div class="hero"><div class="hero-lbl">Cartera Total Activa</div><div class="hero-amount" id="total-cartera">RD$0.00</div><div class="hero-sub" id="hero-sub">— préstamos activos</div></div><div class="stat-grid"><div class="stat-box"><div class="stat-val ca" id="s-aldia">0</div><div class="stat-lbl">Al Día ✅</div></div><div class="stat-box"><div class="stat-val cw" id="s-venc">0</div><div class="stat-lbl">Vencidos ⚠️</div></div><div class="stat-box"><div class="stat-val cb" id="s-hoy">RD$0</div><div class="stat-lbl">Cobrado Hoy</div></div><div class="stat-box"><div class="stat-val ca" id="s-prest">RD$0</div><div class="stat-lbl">Prestado Hoy</div></div></div><div class="sec-title">📅 Pagos Pendientes Hoy</div><div id="pagos-hoy"></div><div class="sec-title">🕒 Préstamos Recientes</div><div id="recientes"></div></div>
     <div class="bot-nav"><div class="nav-item active" data-nav="inicio"><div class="nav-icon">🏠</div><div class="nav-label">Inicio</div><div class="nav-dot"></div></div><div class="nav-item" data-nav="clientes"><div class="nav-icon">👥</div><div class="nav-label">Clientes</div><div class="nav-dot"></div></div><div class="nav-item" data-nav="prestamos"><div class="nav-icon">💰</div><div class="nav-label">Préstamos</div><div class="nav-dot"></div></div><div class="nav-item" data-nav="reportes"><div class="nav-icon">📊</div><div class="nav-label">Reportes</div><div class="nav-dot"></div></div><div class="nav-item" data-nav="config"><div class="nav-icon">⚙️</div><div class="nav-label">Config</div><div class="nav-dot"></div></div></div>
   </div>
@@ -183,7 +182,7 @@ html,body{height:100%;background:var(--bg);font-family:'Sora',sans-serif;color:v
         <div class="card" style="border-color:var(--accent2);"><div class="sec-title" style="margin-top:0;color:var(--accent2)">💾 Backup</div><div class="f2"><button class="btn btn-b" id="btn-export">📤 Exportar</button><button class="btn btn-s" id="btn-import-btn">📥 Importar</button></div><input type="file" id="import-file" accept=".json" style="display:none"></div>
         <div class="card" style="border-color:var(--danger);"><div class="sec-title" style="margin-top:0;color:var(--danger)">⚠️ Zona Peligrosa</div><button class="btn btn-d btn-sm" id="btn-clear">🗑️ Borrar Todo</button></div>
       </div>
-      <div style="text-align:center;color:var(--text3);font-size:11px;padding:16px 0 10px;">LoanPro v2.0</div>
+      <div style="text-align:center;color:var(--text3);font-size:11px;padding:16px 0 10px;">JoanSystem v2.0</div>
     </div>
     <div class="bot-nav"><div class="nav-item" data-nav="inicio"><div class="nav-icon">🏠</div><div class="nav-label">Inicio</div><div class="nav-dot"></div></div><div class="nav-item" data-nav="clientes"><div class="nav-icon">👥</div><div class="nav-label">Clientes</div><div class="nav-dot"></div></div><div class="nav-item" data-nav="prestamos"><div class="nav-icon">💰</div><div class="nav-label">Préstamos</div><div class="nav-dot"></div></div><div class="nav-item" data-nav="reportes"><div class="nav-icon">📊</div><div class="nav-label">Reportes</div><div class="nav-dot"></div></div><div class="nav-item active" data-nav="config"><div class="nav-icon">⚙️</div><div class="nav-label">Config</div><div class="nav-dot"></div></div></div>
   </div>
