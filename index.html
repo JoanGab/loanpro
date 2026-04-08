@@ -149,7 +149,9 @@ html,body{height:100%;background:var(--bg);font-family:'Sora',sans-serif;color:v
 <div class="modal-overlay" id="m-recibo"><div class="modal"><div class="modal-handle"></div><div class="modal-title">🧾 Ticket de Pago</div><div id="recibo-content"></div><div class="f2" style="margin-top:16px;"><button class="btn btn-s" id="btn-close-recibo">✕ Cerrar</button><button class="btn btn-b" id="btn-print-recibo">🖨️ Imprimir</button></div></div></div>
 <div class="modal-overlay" id="m-cliente"><div class="modal"><div class="modal-handle"></div><div class="modal-title" id="m-cliente-title">➕ Nuevo Cliente</div><input type="hidden" id="edit-cid"><div class="fg"><label class="fl">Nombre *</label><input class="fi" id="c-nombre" placeholder="Juan Pérez"></div><div class="fg"><label class="fl">Teléfono *</label><input class="fi" id="c-tel" type="tel" placeholder="809-000-0000"></div><div class="fg"><label class="fl">Cédula</label><input class="fi" id="c-cedula" placeholder="000-0000000-0"></div><div class="fg"><label class="fl">Dirección</label><input class="fi" id="c-dir" placeholder="Calle, sector..."></div><div class="fg"><label class="fl">Notas</label><input class="fi" id="c-notas" placeholder="Referencias..."></div><div class="f2"><button class="btn btn-s" id="btn-cancel-cliente">Cancelar</button><button class="btn btn-p" id="btn-save-cliente">Guardar</button></div></div></div>
 <div class="modal-overlay" id="m-prestamo"><div class="modal"><div class="modal-handle"></div><div class="modal-title">💰 Nuevo Préstamo</div><div class="fg"><label class="fl">Cliente *</label><select class="fi fsel" id="p-cliente"></select></div><div class="fg"><label class="fl">Monto *</label><input class="fi" id="p-monto" type="number" placeholder="5000"></div><div class="fg"><label class="fl">Modalidad *</label><div class="toggle-group" id="mod-toggle"><div class="tbtn active" data-m="diario">📅 Diario</div><div class="tbtn" data-m="semanal">📆 Semanal</div><div class="tbtn" data-m="quincenal">🗓️ Quincenal</div><div class="tbtn" data-m="mensual">📅 Mensual</div><div class="tbtn" data-m="custom">⚡ Custom</div></div></div><div class="f2"><div class="fg"><label class="fl">Tasa (%)</label><input class="fi" id="p-tasa" type="number" step="0.1"></div><div class="fg"><label class="fl">Cuotas</label><input class="fi" id="p-cuotas" type="number" value="30"></div></div><div class="fg" id="p-dias-wrap" style="display:none;"><label class="fl">Cada cuántos días</label><input class="fi" id="p-dias" type="number" value="10"></div><div class="fg"><label class="fl">Fecha Inicio</label><input class="fi" id="p-fecha" type="date"></div><div class="card" id="p-preview" style="background:var(--bg3);border-color:var(--accent);display:none;"><div class="sec-title" style="margin-top:0;color:var(--accent)">Vista Previa</div><div id="p-preview-content"></div></div><div class="f2" style="margin-top:8px;"><button class="btn btn-s" id="btn-cancel-prestamo">Cancelar</button><button class="btn btn-p" id="btn-save-prestamo">Crear</button></div></div></div>
-<div class="modal-overlay" id="m-pago"><div class="modal"><div class="modal-handle"></div><div class="modal-title">💳 Registrar Pago</div><input type="hidden" id="pago-pid"><div id="pago-info"></div><div class="fg" style="margin-top:12px;"><label class="fl">Monto</label><input class="fi" id="pago-monto" type="number" placeholder="0.00"></div><div class="fg"><label class="fl">Tipo</label><select class="fi fsel" id="pago-tipo"><option value="cuota">Cuota regular</option><option value="adelanto">Adelanto</option><option value="total">Pago total</option><option value="mora">Mora</option></select></div><div class="fg"><label class="fl">Nota</label><input class="fi" id="pago-nota" placeholder="Referencia..."></div><div class="f2"><button class="btn btn-s" id="btn-cancel-pago">Cancelar</button><button class="btn btn-p" id="btn-save-pago">Registrar</button></div></div></div>
+<!-- MODAL EDITAR PRÉSTAMO -->
+<div class="modal-overlay" id="m-edit-prestamo"><div class="modal"><div class="modal-handle"></div><div class="modal-title">✏️ Editar Préstamo</div><input type="hidden" id="ep-id"><div class="fg"><label class="fl">Tasa (%)</label><input class="fi" id="ep-tasa" type="number" step="0.1"></div><div class="fg"><label class="fl">Cuotas totales</label><input class="fi" id="ep-cuotas" type="number"></div><div class="fg"><label class="fl">Monto cuota</label><input class="fi" id="ep-cuotaval" type="number" step="0.01"></div><div class="fg"><label class="fl">Estado</label><select class="fi fsel" id="ep-estado"><option value="activo">Activo</option><option value="vencido">Vencido</option><option value="pagado">Pagado</option></select></div><div class="fg"><label class="fl">Nota interna</label><input class="fi" id="ep-nota" placeholder="Observación..."></div><div class="f2" style="margin-top:8px;"><button class="btn btn-s" id="btn-cancel-edit-prestamo">Cancelar</button><button class="btn btn-p" id="btn-save-edit-prestamo">💾 Guardar</button></div></div></div>
+<div class="modal-overlay" id="m-pago"><div class="modal"><div class="modal-handle"></div><div class="modal-title">💳 Registrar Pago</div><input type="hidden" id="pago-pid"><div id="pago-info"></div><div class="fg" style="margin-top:12px;"><label class="fl">Monto</label><input class="fi" id="pago-monto" type="number" placeholder="0.00"></div><div class="fg"><label class="fl">Tipo</label><select class="fi fsel" id="pago-tipo" onchange="onPagoTipoChange()"><option value="cuota">Cuota regular</option><option value="solo_interes">💡 Solo Interés</option><option value="adelanto">Adelanto</option><option value="total">Pago total</option><option value="mora">Mora</option></select></div><div id="solo-interes-info" style="display:none;background:rgba(0,149,255,.1);border:1px solid rgba(0,149,255,.3);border-radius:10px;padding:10px 14px;font-size:12px;color:var(--accent2);margin-bottom:14px;">💡 <b>Solo Interés:</b> El capital pendiente NO disminuye. Solo se registra el pago de intereses y se actualiza la próxima fecha de pago.</div><div class="fg"><label class="fl">Nota</label><input class="fi" id="pago-nota" placeholder="Referencia..."></div><div class="f2"><button class="btn btn-s" id="btn-cancel-pago">Cancelar</button><button class="btn btn-p" id="btn-save-pago">Registrar</button></div></div></div>
 <!-- APP -->
 <div class="app hidden" id="app">
   <div class="screen active" id="sc-inicio">
@@ -177,12 +179,12 @@ html,body{height:100%;background:var(--bg);font-family:'Sora',sans-serif;color:v
     <div class="content fade-in">
       <div class="card" style="border-color:var(--accent2);"><div class="sec-title" style="margin-top:0;color:var(--accent2)">🔐 Sesión</div><div id="session-info"></div><button class="btn btn-d" id="btn-logout" style="margin-top:10px;">🚪 Cerrar Sesión</button></div>
       <div id="admin-section">
-        <div class="card"><div class="sec-title" style="margin-top:0">🏢 Empresa</div><div class="fg"><label class="fl">Nombre</label><input class="fi" id="cfg-empresa"></div><div class="fg"><label class="fl">Moneda</label><select class="fi fsel" id="cfg-moneda"><option value="RD$">RD$ (Peso Dominicano)</option><option value="$">$ (Dólar USA)</option><option value="€">€ (Euro)</option><option value="Q">Q (Quetzal)</option><option value="L">L (Lempira)</option><option value="C$">C$ (Córdoba)</option></select></div><div class="sec-title">📊 Tasas (%)</div><div class="f2"><div class="fg"><label class="fl">Diario</label><input class="fi" type="number" id="cfg-diario" step="0.1"></div><div class="fg"><label class="fl">Semanal</label><input class="fi" type="number" id="cfg-semanal" step="0.1"></div></div><div class="f2"><div class="fg"><label class="fl">Quincenal</label><input class="fi" type="number" id="cfg-quincenal" step="0.1"></div><div class="fg"><label class="fl">Mensual</label><input class="fi" type="number" id="cfg-mensual" step="0.1"></div></div><div class="f2"><div class="fg"><label class="fl">Custom</label><input class="fi" type="number" id="cfg-custom" step="0.1"></div><div class="fg"><label class="fl">% Mora</label><input class="fi" type="number" id="cfg-mora" step="0.1"></div></div><div class="fg"><label class="fl">Días Gracia</label><input class="fi" type="number" id="cfg-gracia"></div><button class="btn btn-p" id="btn-save-cfg">💾 Guardar</button></div>
+        <div class="card"><div class="sec-title" style="margin-top:0">🏢 Empresa</div><div class="fg"><label class="fl">Nombre</label><input class="fi" id="cfg-empresa"></div><div class="fg"><label class="fl">Eslogan / Subtítulo</label><input class="fi" id="cfg-eslogan" placeholder="Sistema de Préstamos"></div><div class="fg"><label class="fl">Logo de Factura</label><div style="display:flex;gap:8px;align-items:center;"><div id="logo-preview" style="width:60px;height:60px;border-radius:10px;background:var(--bg3);border:1px dashed var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--text3);overflow:hidden;flex-shrink:0;"></div><div style="flex:1;"><button class="btn btn-s btn-sm" onclick="document.getElementById('cfg-logo-file').click()">📁 Subir Logo</button><button class="btn btn-d btn-sm" style="margin-top:6px;" onclick="clearLogo()">🗑️ Quitar</button><input type="file" id="cfg-logo-file" accept="image/*" style="display:none" onchange="handleLogoUpload(this)"></div></div></div><div class="fg"><label class="fl">Moneda</label><select class="fi fsel" id="cfg-moneda"><option value="RD$">RD$ (Peso Dominicano)</option><option value="$">$ (Dólar USA)</option><option value="€">€ (Euro)</option><option value="Q">Q (Quetzal)</option><option value="L">L (Lempira)</option><option value="C$">C$ (Córdoba)</option></select></div><div class="sec-title">📊 Tasas (%)</div><div class="f2"><div class="fg"><label class="fl">Diario</label><input class="fi" type="number" id="cfg-diario" step="0.1"></div><div class="fg"><label class="fl">Semanal</label><input class="fi" type="number" id="cfg-semanal" step="0.1"></div></div><div class="f2"><div class="fg"><label class="fl">Quincenal</label><input class="fi" type="number" id="cfg-quincenal" step="0.1"></div><div class="fg"><label class="fl">Mensual</label><input class="fi" type="number" id="cfg-mensual" step="0.1"></div></div><div class="f2"><div class="fg"><label class="fl">Custom</label><input class="fi" type="number" id="cfg-custom" step="0.1"></div><div class="fg"><label class="fl">% Mora</label><input class="fi" type="number" id="cfg-mora" step="0.1"></div></div><div class="fg"><label class="fl">Días Gracia</label><input class="fi" type="number" id="cfg-gracia"></div><button class="btn btn-p" id="btn-save-cfg">💾 Guardar</button></div>
         <div class="card" style="border-color:var(--accent);"><div class="sec-title" style="margin-top:0;color:var(--accent)">👥 Usuarios</div><div id="cfg-users-preview" style="margin-bottom:10px;"></div><button class="btn btn-p btn-sm" id="btn-manage-users">⚙️ Gestionar</button></div>
         <div class="card" style="border-color:var(--accent2);"><div class="sec-title" style="margin-top:0;color:var(--accent2)">💾 Backup</div><div class="f2"><button class="btn btn-b" id="btn-export">📤 Exportar</button><button class="btn btn-s" id="btn-import-btn">📥 Importar</button></div><input type="file" id="import-file" accept=".json" style="display:none"></div>
         <div class="card" style="border-color:var(--danger);"><div class="sec-title" style="margin-top:0;color:var(--danger)">⚠️ Zona Peligrosa</div><button class="btn btn-d btn-sm" id="btn-clear">🗑️ Borrar Todo</button></div>
       </div>
-      <div style="text-align:center;color:var(--text3);font-size:11px;padding:16px 0 10px;">JoanSystem v2.0</div>
+      <div style="text-align:center;color:var(--text3);font-size:11px;padding:16px 0 10px;">JoanSystem v2.1 · <span style="color:var(--accent2)">Desarrollado por DualCore Studio</span></div>
     </div>
     <div class="bot-nav"><div class="nav-item" data-nav="inicio"><div class="nav-icon">🏠</div><div class="nav-label">Inicio</div><div class="nav-dot"></div></div><div class="nav-item" data-nav="clientes"><div class="nav-icon">👥</div><div class="nav-label">Clientes</div><div class="nav-dot"></div></div><div class="nav-item" data-nav="prestamos"><div class="nav-icon">💰</div><div class="nav-label">Préstamos</div><div class="nav-dot"></div></div><div class="nav-item" data-nav="reportes"><div class="nav-icon">📊</div><div class="nav-label">Reportes</div><div class="nav-dot"></div></div><div class="nav-item active" data-nav="config"><div class="nav-icon">⚙️</div><div class="nav-label">Config</div><div class="nav-dot"></div></div></div>
   </div>
@@ -207,7 +209,7 @@ const FB_CFG = {
 
 // ── ESTADO GLOBAL ───────────────────────────────────────────
 let clientes = [], prestamos = [], pagos = [], usuarios = [];
-let config = {empresa:'LoanPro',moneda:'RD$',tasas:{diario:2,semanal:5,quincenal:8,mensual:12,custom:10},mora:3,gracia:1};
+let config = {empresa:'LoanPro',eslogan:'Sistema de Préstamos',moneda:'RD$',logo:'',tasas:{diario:2,semanal:5,quincenal:8,mensual:12,custom:10},mora:3,gracia:1};
 let currentUser = null, currentScreen = 'inicio', prevScreen = 'inicio';
 let selModalidad = 'diario', filtro = 'todos';
 let currentCid = null, currentPid = null, lastPid = null, lastPgid = null;
@@ -445,7 +447,8 @@ function applyRoleUI(){
   document.getElementById('btn-new-p-hdr').style.display=cobrador?'':'none';
   document.getElementById('btn-add-cliente').style.display=cobrador?'':'none';
   document.getElementById('btn-add-prestamo').style.display=cobrador?'':'none';
-  document.getElementById('btn-edit-c').style.display=admin?'':'none';
+  // Edit cliente visible para admin Y cobrador
+  document.getElementById('btn-edit-c').style.display=cobrador?'':'none';
   const adminSection=document.getElementById('admin-section');
   if(adminSection)adminSection.style.display=admin?'':'none';
 }
@@ -537,6 +540,7 @@ function loadCfgUI(){
   }
   if(!isAdmin())return;
   document.getElementById('cfg-empresa').value=config.empresa;
+  document.getElementById('cfg-eslogan').value=config.eslogan||'';
   document.getElementById('cfg-moneda').value=config.moneda;
   document.getElementById('cfg-diario').value=config.tasas.diario;
   document.getElementById('cfg-semanal').value=config.tasas.semanal;
@@ -545,10 +549,24 @@ function loadCfgUI(){
   document.getElementById('cfg-custom').value=config.tasas.custom;
   document.getElementById('cfg-mora').value=config.mora;
   document.getElementById('cfg-gracia').value=config.gracia;
+  renderLogoPreview();
   renderCfgUsers();
 }
+function renderLogoPreview(){
+  const el=document.getElementById('logo-preview');if(!el)return;
+  if(config.logo){el.innerHTML=`<img src="${config.logo}" style="width:100%;height:100%;object-fit:contain;">`;}
+  else{el.innerHTML='Sin logo';}
+}
+function handleLogoUpload(input){
+  const file=input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{config.logo=e.target.result;renderLogoPreview();showToast('✅ Logo cargado — guarda config');};
+  reader.readAsDataURL(file);input.value='';
+}
+function clearLogo(){config.logo='';renderLogoPreview();showToast('Logo eliminado');}
 async function guardarConfig(){
   config.empresa=document.getElementById('cfg-empresa').value||'LoanPro';
+  config.eslogan=document.getElementById('cfg-eslogan').value||'Sistema de Préstamos';
   config.moneda=document.getElementById('cfg-moneda').value;
   config.tasas.diario=parseFloat(document.getElementById('cfg-diario').value)||2;
   config.tasas.semanal=parseFloat(document.getElementById('cfg-semanal').value)||5;
@@ -557,6 +575,7 @@ async function guardarConfig(){
   config.tasas.custom=parseFloat(document.getElementById('cfg-custom').value)||10;
   config.mora=parseFloat(document.getElementById('cfg-mora').value)||3;
   config.gracia=parseInt(document.getElementById('cfg-gracia').value)||0;
+  // logo ya está en config.logo (se guarda al subir)
   saveLocal();await fbSaveCfg();showToast('✅ Guardado');
 }
 
@@ -591,6 +610,7 @@ function renderClientes(){
         <div class="cb2" style="color:${saldo>0?'var(--warn)':'var(--text2)'}">${saldo>0?fmt(saldo):'—'}</div>
         <div style="font-size:10px;margin-top:2px;">${venc?'<span class="badge br">Vencido</span>':saldo>0?'<span class="badge bw">Activo</span>':'<span class="badge bgr">Sin deuda</span>'}</div>
       </div>
+      ${isCobrador()?`<button class="btn btn-s btn-sm" style="padding:6px 10px;font-size:14px;margin-right:4px;" data-action="edit-cliente-list" data-id="${c.id}">✏️</button>`:''}
       ${isAdmin()?`<button class="btn btn-d btn-sm" style="padding:6px 10px;font-size:14px;" data-action="del-cliente" data-id="${c.id}">🗑️</button>`:''}
     </div>`;
   }).join('');
@@ -621,7 +641,7 @@ function openClienteDet(id){
   const c=getC(id);
   document.getElementById('det-nombre').textContent=c.nombre;
   document.getElementById('det-tel').textContent=c.tel;
-  document.getElementById('btn-edit-c').style.display=isAdmin()?'':'none';
+  document.getElementById('btn-edit-c').style.display=isCobrador()?'':'none';
   renderClienteDet(id);
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('sc-cliente-det').classList.add('active');
@@ -708,6 +728,7 @@ function pCard(p){
         <div style="font-size:20px;font-weight:800;font-family:'JetBrains Mono',monospace;letter-spacing:-1px;" id="pamt-${p.id}">${fmt(p.monto)}</div></div>
       <div style="display:flex;gap:6px;align-items:flex-start;">
         <div style="text-align:right;"><span class="badge ${bcls[p.estado]}">${blbl[p.estado]}</span><div style="font-size:11px;color:var(--text2);margin-top:4px;">${mLbl(p.modalidad)} · ${p.tasa}%</div></div>
+        ${isCobrador()?`<button class="btn btn-s btn-sm" style="padding:5px 8px;font-size:13px;" data-action="edit-prestamo" data-id="${p.id}">✏️</button>`:''}
         ${isAdmin()?`<button class="btn btn-d btn-sm" style="padding:5px 8px;font-size:13px;" data-action="del-prestamo" data-id="${p.id}">🗑️</button>`:''}
       </div>
     </div>
@@ -747,6 +768,45 @@ async function deletePrestamo(id){
   if(currentScreen==='prestamo-det')goBack();
   else{renderInicio();renderReportes();}
 }
+function openEditPrestamo(id){
+  const p=getP(id);if(!p)return;
+  document.getElementById('ep-id').value=p.id;
+  document.getElementById('ep-tasa').value=p.tasa;
+  document.getElementById('ep-cuotas').value=p.cuotas;
+  document.getElementById('ep-cuotaval').value=p.cuotaVal?p.cuotaVal.toFixed(2):'';
+  document.getElementById('ep-estado').value=p.estado;
+  document.getElementById('ep-nota').value=p.notaInterna||'';
+  openModal('m-edit-prestamo');
+}
+async function guardarEditPrestamo(){
+  const id=document.getElementById('ep-id').value;
+  const p=getP(id);if(!p)return;
+  const nuevaTasa=parseFloat(document.getElementById('ep-tasa').value)||p.tasa;
+  const nuevasCuotas=parseInt(document.getElementById('ep-cuotas').value)||p.cuotas;
+  const nuevaCuotaVal=parseFloat(document.getElementById('ep-cuotaval').value)||p.cuotaVal;
+  const nuevoEstado=document.getElementById('ep-estado').value;
+  const nota=document.getElementById('ep-nota').value;
+  // Recalcular totalPagar
+  const interes=p.monto*(nuevaTasa/100);
+  p.tasa=nuevaTasa;
+  p.cuotas=nuevasCuotas;
+  p.cuotaVal=nuevaCuotaVal;
+  p.totalPagar=p.monto+interes*nuevasCuotas;
+  p.estado=nuevoEstado;
+  p.notaInterna=nota;
+  // Reconstruir schedule manteniendo los pagados
+  const dias=mDias(p.modalidad,p.diasCustom||10);
+  const pagados=p.schedule.filter(s=>s.pagado).length;
+  const nuevasSch=[];
+  for(let i=1;i<=nuevasCuotas;i++){
+    nuevasSch.push({num:i,fechaVence:dateAdd(p.fecha,dias*i),monto:nuevaCuotaVal,pagado:i<=pagados});
+  }
+  p.schedule=nuevasSch;
+  await dbSave('prestamos',p);
+  closeModal('m-edit-prestamo');
+  if(currentScreen==='prestamo-det')renderPrestamoDet(id);
+  renderAll();showToast('✅ Préstamo actualizado');
+}
 function openPrestamoDet(id){
   currentPid=id;prevScreen=currentScreen;
   renderPrestamoDet(id);
@@ -768,6 +828,7 @@ function renderPrestamoDet(id){
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;"><div class="stat-box"><div class="stat-val ca">${fmt(p.totalPagar)}</div><div class="stat-lbl">Total a pagar</div></div><div class="stat-box"><div class="stat-val cw">${fmt(saldo)}</div><div class="stat-lbl">Saldo pendiente</div></div></div>
   <div class="card" style="margin-bottom:12px;"><div class="pbar" style="height:8px;margin-bottom:6px;"><div class="pfill" style="width:${prog}%"></div></div><div style="font-size:12px;color:var(--text2);">${prog}% (${p.cuotas-getCuotasPend(p)}/${p.cuotas} cuotas)</div><hr class="divider"><div class="rcpt-row"><span>Fecha inicio</span><span>${fmtDate(p.fecha)}</span></div><div class="rcpt-row"><span>Estado</span><span><span class="badge ${bcls[p.estado]}">${p.estado}</span></span></div>${mora>0?`<div class="rcpt-row"><span style="color:var(--danger)">Mora estimada</span><span style="color:var(--danger)">${fmt(mora)}</span></div>`:''}</div>`;
   if(isCobrador()&&p.estado!=='pagado')html+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;"><button class="btn btn-p" data-action="cobrar" data-id="${id}">💳 Registrar Pago</button><button class="btn btn-b" data-action="recibo" data-id="${id}" data-pgid="">🧾 Ver Recibo</button></div>`;
+  if(isCobrador())html+=`<button class="btn btn-s" style="margin-bottom:8px;" data-action="edit-prestamo" data-id="${id}">✏️ Editar Préstamo</button>`;
   if(isAdmin())html+=`<button class="btn btn-d" style="margin-bottom:12px;" data-action="del-prestamo" data-id="${id}">🗑️ Eliminar Préstamo</button>`;
   html+=`<div class="sec-title">📋 Tabla de Cuotas</div><div class="card" style="padding:8px;">`;
   html+=p.schedule.map((s,i)=>{const v=!s.pagado&&s.fechaVence<hoy;return`<div style="display:flex;align-items:center;gap:8px;padding:7px 6px;${i<p.schedule.length-1?'border-bottom:1px solid var(--border)':''}"><div style="width:24px;height:24px;border-radius:6px;background:${s.pagado?'rgba(0,229,176,.2)':v?'rgba(255,68,68,.2)':'var(--bg3)'};display:flex;align-items:center;justify-content:center;font-size:12px;">${s.pagado?'✓':v?'!':s.num}</div><div style="flex:1;font-size:12px;color:${s.pagado?'var(--text2)':v?'var(--danger)':'var(--text)'}">Cuota ${s.num} — ${fmtDate(s.fechaVence)}</div><div style="font-size:13px;font-weight:700;font-family:'JetBrains Mono',monospace;color:${s.pagado?'var(--text3)':v?'var(--danger)':'var(--text)'}">${fmt(s.monto)}</div></div>`;}).join('');
@@ -788,6 +849,18 @@ function abrirPago(pid){
   document.getElementById('pago-info').innerHTML=`<div class="card" style="background:var(--bg3);"><div class="rcpt-row"><span>Cliente</span><span>${c.nombre}</span></div><div class="rcpt-row"><span>Saldo</span><span style="color:var(--warn)">${fmt(saldo)}</span></div><div class="rcpt-row"><span>Cuotas restantes</span><span>${getCuotasPend(p)}</span></div></div>`;
   openModal('m-pago');
 }
+function onPagoTipoChange(){
+  const tipo=document.getElementById('pago-tipo').value;
+  const infoEl=document.getElementById('solo-interes-info');
+  if(infoEl)infoEl.style.display=tipo==='solo_interes'?'block':'none';
+  if(tipo==='solo_interes'){
+    // Calcular solo el interés de la próxima cuota
+    const pid=document.getElementById('pago-pid').value;
+    const p=getP(pid);if(!p)return;
+    const interesCuota=p.monto*(p.tasa/100);
+    document.getElementById('pago-monto').value=interesCuota.toFixed(2);
+  }
+}
 async function registrarPago(){
   const pid=document.getElementById('pago-pid').value;
   const monto=parseFloat(document.getElementById('pago-monto').value)||0;
@@ -798,11 +871,24 @@ async function registrarPago(){
   const pgid=uid();
   const pg={id:pgid,prestamoId:pid,monto,tipo,nota,fecha:today()};
   await dbSave('pagos',pg);
-  let rest=monto;
-  for(let s of p.schedule){if(s.pagado||rest<=0)continue;if(rest>=s.monto*.95){s.pagado=true;rest-=s.monto;}else break;}
-  if(tipo==='total')p.schedule.forEach(s=>s.pagado=true);
+
+  if(tipo==='solo_interes'){
+    // ── COBRO SOLO INTERÉS: Capital NO disminuye ──────────────
+    // Solo avanzar la fecha de la próxima cuota pendiente sin marcarla como pagada
+    const next=p.schedule.find(s=>!s.pagado);
+    if(next){
+      const dias=mDias(p.modalidad,p.diasCustom||10);
+      next.fechaVence=dateAdd(next.fechaVence,dias);
+    }
+    pg.soloInteres=true;
+  } else {
+    // Lógica normal de abono a capital
+    let rest=monto;
+    for(let s of p.schedule){if(s.pagado||rest<=0)continue;if(rest>=s.monto*.95){s.pagado=true;rest-=s.monto;}else break;}
+    if(tipo==='total')p.schedule.forEach(s=>s.pagado=true);
+  }
   updateEstado(p);await dbSave('prestamos',p);
-  closeModal('m-pago');renderAll();showToast('✅ Pago registrado');
+  closeModal('m-pago');renderAll();showToast(tipo==='solo_interes'?'💡 Interés registrado':'✅ Pago registrado');
   setTimeout(()=>generarRecibo(pid,pgid),400);
 }
 
@@ -814,6 +900,10 @@ function printWin(html,title){
   w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${title}</title><style>${tcss()}</style></head><body>${html}<div style="text-align:center;margin-top:20px;" class="np"><button onclick="window.print()" style="padding:12px 32px;background:#111;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">🖨️ Imprimir</button><button onclick="window.close()" style="padding:12px 24px;background:#f3f4f6;color:#333;border:none;border-radius:8px;font-size:14px;margin-left:8px;font-weight:700;cursor:pointer;">✕</button></div><script>setTimeout(()=>window.print(),600);<\/script></body></html>`);
   w.document.close();
 }
+function buildLogoHtml(){
+  if(config.logo)return`<div style="text-align:center;margin-bottom:6px;"><img src="${config.logo}" style="max-height:64px;max-width:160px;object-fit:contain;"></div>`;
+  return`<div class="tl">${config.empresa}</div>`;
+}
 function buildTicket(pid,pgid){
   const p=getP(pid);if(!p)return'';
   const c=getC(p.clienteId);
@@ -822,7 +912,8 @@ function buildTicket(pid,pgid){
   const totalPag=pp.reduce((a,x)=>a+x.monto,0);
   const saldo=getSaldo(p);const mora=calcMora(p);
   const next=p.schedule.find(s=>!s.pagado);
-  return`<div class="t"><div class="tl">${config.empresa}</div><div class="tt">Recibo de Pago</div><div class="tn">No.${String(pp.length).padStart(5,'0')} · ${fmtDate(pg?.fecha||today())}</div><hr class="ss"><div class="stit">👤 Cliente</div><div class="row"><span class="l">Nombre</span><span class="v">${c.nombre||'—'}</span></div><div class="row"><span class="l">Teléfono</span><span class="v">${c.tel||'—'}</span></div>${c.cedula?`<div class="row"><span class="l">Cédula</span><span class="v">${c.cedula}</span></div>`:''}<hr class="sep"><div class="stit">💰 Préstamo</div><div class="row"><span class="l">Capital</span><span class="v">${fmt(p.monto)}</span></div><div class="row"><span class="l">Modalidad</span><span class="v">${mLbl(p.modalidad)} · ${p.tasa}%</span></div><div class="row"><span class="l">Total</span><span class="v">${fmt(p.totalPagar)}</span></div>${pg?`<hr class="sep"><div class="stit">💳 Pago</div><div class="row"><span class="l">Tipo</span><span class="v">${pg.tipo||'Cuota'}</span></div><div class="row"><span class="l">Fecha</span><span class="v">${fmtDate(pg.fecha)}</span></div>${pg.nota?`<div class="row"><span class="l">Nota</span><span class="v">${pg.nota}</span></div>`:''}<hr class="sep"><div class="big">${fmt(pg.monto)}</div><div style="text-align:center;font-size:10px;color:#888;margin-bottom:8px;">MONTO RECIBIDO</div>`:''}<hr class="sep"><div class="row"><span class="l">Total pagado</span><span class="v">${fmt(totalPag)}</span></div><div class="row"><span class="l">Cuotas pagadas</span><span class="v">${p.cuotas-getCuotasPend(p)} / ${p.cuotas}</span></div>${mora>0?`<div class="row"><span class="l" style="color:#ef4444">Mora</span><span class="v" style="color:#ef4444">${fmt(mora)}</span></div>`:''} ${next&&p.estado!=='pagado'?`<div class="row"><span class="l">Próx. vence</span><span class="v">${fmtDate(next.fechaVence)}</span></div>`:''}<div class="sbox"><span class="l">SALDO PENDIENTE</span><span class="v">${fmt(saldo)}</span></div><div class="foot">${config.empresa}<br>${new Date().toLocaleDateString('es-DO',{day:'2-digit',month:'long',year:'numeric'})}</div></div>`;
+  const esSoloInteres=pg&&pg.soloInteres;
+  return`<div class="t">${buildLogoHtml()}<div class="tt">Recibo de Pago</div><div class="tn">No.${String(pp.length).padStart(5,'0')} · ${fmtDate(pg?.fecha||today())}</div><hr class="ss"><div class="stit">👤 Cliente</div><div class="row"><span class="l">Nombre</span><span class="v">${c.nombre||'—'}</span></div><div class="row"><span class="l">Teléfono</span><span class="v">${c.tel||'—'}</span></div>${c.cedula?`<div class="row"><span class="l">Cédula</span><span class="v">${c.cedula}</span></div>`:''}<hr class="sep"><div class="stit">💰 Préstamo</div><div class="row"><span class="l">Capital</span><span class="v">${fmt(p.monto)}</span></div><div class="row"><span class="l">Modalidad</span><span class="v">${mLbl(p.modalidad)} · ${p.tasa}%</span></div><div class="row"><span class="l">Total</span><span class="v">${fmt(p.totalPagar)}</span></div>${pg?`<hr class="sep"><div class="stit">💳 Pago</div><div class="row"><span class="l">Tipo</span><span class="v">${esSoloInteres?'💡 Solo Interés':pg.tipo||'Cuota'}</span></div><div class="row"><span class="l">Fecha</span><span class="v">${fmtDate(pg.fecha)}</span></div>${pg.nota?`<div class="row"><span class="l">Nota</span><span class="v">${pg.nota}</span></div>`:''}<hr class="sep"><div class="big">${fmt(pg.monto)}</div><div style="text-align:center;font-size:10px;color:#888;margin-bottom:8px;">${esSoloInteres?'INTERÉS RECIBIDO — CAPITAL INTACTO':'MONTO RECIBIDO'}</div>`:''}<hr class="sep"><div class="row"><span class="l">Total pagado</span><span class="v">${fmt(totalPag)}</span></div><div class="row"><span class="l">Cuotas pagadas</span><span class="v">${p.cuotas-getCuotasPend(p)} / ${p.cuotas}</span></div>${mora>0?`<div class="row"><span class="l" style="color:#ef4444">Mora</span><span class="v" style="color:#ef4444">${fmt(mora)}</span></div>`:''} ${next&&p.estado!=='pagado'?`<div class="row"><span class="l">Próx. vence</span><span class="v">${fmtDate(next.fechaVence)}</span></div>`:''}<div class="sbox"><span class="l">SALDO PENDIENTE</span><span class="v">${fmt(saldo)}</span></div><div class="foot">${config.empresa}${config.eslogan?'<br>'+config.eslogan:''}<br>${new Date().toLocaleDateString('es-DO',{day:'2-digit',month:'long',year:'numeric'})}<br><span style="color:#bbb;">Desarrollado por DualCore Studio</span></div></div>`;
 }
 function buildReporte(){
   prestamos.forEach(p=>updateEstado(p));
@@ -831,7 +922,7 @@ function buildReporte(){
   const hoy=today();const ph=pagos.filter(pg=>pg.fecha===hoy);const ch=ph.reduce((a,pg)=>a+pg.monto,0);
   const vl=prestamos.filter(p=>p.estado==='vencido');
   const uc=[...pagos].sort((a,b)=>b.fecha.localeCompare(a.fecha)).slice(0,10);
-  return`<div class="t"><div class="tl">${config.empresa}</div><div class="tt">Reporte General</div><div class="tn">${new Date().toLocaleDateString('es-DO',{weekday:'long',day:'2-digit',month:'long',year:'numeric'})}</div><hr class="ss"><div class="stit">📊 Cartera</div><div class="row"><span class="l">Capital prestado</span><span class="v">${fmt(tc)}</span></div><div class="row"><span class="l">Intereses</span><span class="v">${fmt(ti)}</span></div><div class="row"><span class="l">Total cobrado</span><span class="v" style="color:#059669">${fmt(tco)}</span></div><div class="sbox"><span class="l">POR COBRAR</span><span class="v">${fmt(tp)}</span></div><hr class="sep"><div class="stit">📈 Préstamos</div><div class="row"><span class="l">Total</span><span class="v">${prestamos.length}</span></div><div class="row"><span class="l">Activos</span><span class="v" style="color:#059669">${prestamos.filter(p=>p.estado==='activo').length}</span></div><div class="row"><span class="l">Vencidos</span><span class="v" style="color:#ef4444">${vl.length}</span></div><div class="row"><span class="l">Clientes</span><span class="v">${clientes.length}</span></div><hr class="sep"><div class="stit">📅 Hoy</div><div class="row"><span class="l">Pagos hoy</span><span class="v">${ph.length}</span></div><div class="sbox" style="border-color:#059669"><span class="l">COBRADO HOY</span><span class="v" style="color:#059669">${fmt(ch)}</span></div><hr class="sep"><div class="stit">⚠️ Vencidos</div>${vl.length?vl.map(p=>{const cl=getC(p.clienteId);return`<div class="row"><span class="l">${cl.nombre||'—'}</span><span class="v" style="color:#ef4444">${fmt(getSaldo(p))}</span></div>`;}).join(''):'<div style="color:#aaa;text-align:center;font-size:11px;padding:4px;">✓ Sin vencidos</div>'}<hr class="sep"><div class="stit">💳 Últimos 10 Cobros</div>${uc.map(pg=>{const pr=getP(pg.prestamoId);const cl=getC(pr?.clienteId);return`<div class="row"><span class="l">${cl.nombre||'—'} <span style="color:#bbb">${fmtDate(pg.fecha)}</span></span><span class="v" style="color:#059669">${fmt(pg.monto)}</span></div>`;}).join('')}<div class="foot">${config.empresa} · Reporte<br>${new Date().toLocaleDateString('es-DO',{day:'2-digit',month:'long',year:'numeric'})}</div></div>`;
+  return`<div class="t">${buildLogoHtml()}<div class="tt">Reporte General</div><div class="tn">${new Date().toLocaleDateString('es-DO',{weekday:'long',day:'2-digit',month:'long',year:'numeric'})}</div><hr class="ss"><div class="stit">📊 Cartera</div><div class="row"><span class="l">Capital prestado</span><span class="v">${fmt(tc)}</span></div><div class="row"><span class="l">Intereses</span><span class="v">${fmt(ti)}</span></div><div class="row"><span class="l">Total cobrado</span><span class="v" style="color:#059669">${fmt(tco)}</span></div><div class="sbox"><span class="l">POR COBRAR</span><span class="v">${fmt(tp)}</span></div><hr class="sep"><div class="stit">📈 Préstamos</div><div class="row"><span class="l">Total</span><span class="v">${prestamos.length}</span></div><div class="row"><span class="l">Activos</span><span class="v" style="color:#059669">${prestamos.filter(p=>p.estado==='activo').length}</span></div><div class="row"><span class="l">Vencidos</span><span class="v" style="color:#ef4444">${vl.length}</span></div><div class="row"><span class="l">Clientes</span><span class="v">${clientes.length}</span></div><hr class="sep"><div class="stit">📅 Hoy</div><div class="row"><span class="l">Pagos hoy</span><span class="v">${ph.length}</span></div><div class="sbox" style="border-color:#059669"><span class="l">COBRADO HOY</span><span class="v" style="color:#059669">${fmt(ch)}</span></div><hr class="sep"><div class="stit">⚠️ Vencidos</div>${vl.length?vl.map(p=>{const cl=getC(p.clienteId);return`<div class="row"><span class="l">${cl.nombre||'—'}</span><span class="v" style="color:#ef4444">${fmt(getSaldo(p))}</span></div>`;}).join(''):'<div style="color:#aaa;text-align:center;font-size:11px;padding:4px;">✓ Sin vencidos</div>'}<hr class="sep"><div class="stit">💳 Últimos 10 Cobros</div>${uc.map(pg=>{const pr=getP(pg.prestamoId);const cl=getC(pr?.clienteId);return`<div class="row"><span class="l">${cl.nombre||'—'} <span style="color:#bbb">${fmtDate(pg.fecha)}</span></span><span class="v" style="color:#059669">${fmt(pg.monto)}</span></div>`;}).join('')}<div class="foot">${config.empresa}${config.eslogan?'<br>'+config.eslogan:''} · Reporte<br>${new Date().toLocaleDateString('es-DO',{day:'2-digit',month:'long',year:'numeric'})}<br><span style="color:#bbb;">Desarrollado por DualCore Studio</span></div></div>`;
 }
 function generarRecibo(pid,pgid){
   const p=getP(pid);if(!p)return;
@@ -841,8 +932,10 @@ function generarRecibo(pid,pgid){
   const totalPag=pagos.filter(x=>x.prestamoId===pid).reduce((a,x)=>a+x.monto,0);
   const mora=calcMora(p);
   const ec={activo:'var(--accent)',vencido:'var(--danger)',pagado:'var(--text2)'}[p.estado];
+  const esSoloInteres=pg&&pg.soloInteres;
   lastPid=pid;lastPgid=pgid;
-  document.getElementById('recibo-content').innerHTML=`<div class="rcpt"><div class="rcpt-hdr"><div class="rcpt-logo">${config.empresa}</div><div class="rcpt-sub">RECIBO · No.${String(pagos.filter(x=>x.prestamoId===pid).length).padStart(4,'0')} · ${fmtDate(pg?.fecha||today())}</div></div><div class="rcpt-row"><span>Cliente</span><span>${c.nombre||'—'}</span></div><div class="rcpt-row"><span>Teléfono</span><span>${c.tel||'—'}</span></div>${c.cedula?`<div class="rcpt-row"><span>Cédula</span><span>${c.cedula}</span></div>`:''}<hr style="border-color:var(--border2);margin:8px 0"><div class="rcpt-row"><span>Capital</span><span>${fmt(p.monto)}</span></div><div class="rcpt-row"><span>Modalidad · Tasa</span><span>${mLbl(p.modalidad)} · ${p.tasa}%</span></div><div class="rcpt-row"><span>Total préstamo</span><span>${fmt(p.totalPagar)}</span></div>${pg?`<hr style="border-color:var(--border2);margin:8px 0"><div class="rcpt-row"><span>Tipo pago</span><span>${pg.tipo||'Cuota'}</span></div>${pg.nota?`<div class="rcpt-row"><span>Nota</span><span>${pg.nota}</span></div>`:''}<div class="rcpt-total"><span>PAGO RECIBIDO</span><span style="color:var(--accent)">${fmt(pg.monto)}</span></div>`:''}<hr style="border-color:var(--border2);margin:8px 0"><div class="rcpt-row"><span>Total pagado</span><span style="color:var(--accent)">${fmt(totalPag)}</span></div>${mora>0?`<div class="rcpt-row"><span style="color:var(--danger)">Mora</span><span style="color:var(--danger)">${fmt(mora)}</span></div>`:''}<div class="rcpt-row"><span>Cuotas restantes</span><span>${getCuotasPend(p)}</span></div><div style="border:1px solid var(--warn);border-radius:8px;padding:8px 10px;margin-top:8px;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:11px;color:var(--text2)">SALDO PENDIENTE</span><span style="font-size:16px;font-weight:800;font-family:'JetBrains Mono',monospace;color:var(--warn)">${fmt(saldo)}</span></div></div>`;
+  const logoHtml=config.logo?`<img src="${config.logo}" style="max-height:48px;max-width:140px;object-fit:contain;margin-bottom:4px;">`:`<div class="rcpt-logo">${config.empresa}</div>`;
+  document.getElementById('recibo-content').innerHTML=`<div class="rcpt"><div class="rcpt-hdr">${logoHtml}<div class="rcpt-sub">RECIBO · No.${String(pagos.filter(x=>x.prestamoId===pid).length).padStart(4,'0')} · ${fmtDate(pg?.fecha||today())}${esSoloInteres?'<br><span style="background:rgba(0,149,255,.2);color:var(--accent2);padding:2px 8px;border-radius:6px;font-size:10px;font-weight:700;">💡 SOLO INTERÉS</span>':''}</div></div><div class="rcpt-row"><span>Cliente</span><span>${c.nombre||'—'}</span></div><div class="rcpt-row"><span>Teléfono</span><span>${c.tel||'—'}</span></div>${c.cedula?`<div class="rcpt-row"><span>Cédula</span><span>${c.cedula}</span></div>`:''}<hr style="border-color:var(--border2);margin:8px 0"><div class="rcpt-row"><span>Capital</span><span>${fmt(p.monto)}</span></div><div class="rcpt-row"><span>Modalidad · Tasa</span><span>${mLbl(p.modalidad)} · ${p.tasa}%</span></div><div class="rcpt-row"><span>Total préstamo</span><span>${fmt(p.totalPagar)}</span></div>${pg?`<hr style="border-color:var(--border2);margin:8px 0"><div class="rcpt-row"><span>Tipo pago</span><span>${esSoloInteres?'💡 Solo Interés':pg.tipo||'Cuota'}</span></div>${pg.nota?`<div class="rcpt-row"><span>Nota</span><span>${pg.nota}</span></div>`:''}<div class="rcpt-total"><span>${esSoloInteres?'INTERÉS RECIBIDO':'PAGO RECIBIDO'}</span><span style="color:var(--accent)">${fmt(pg.monto)}</span></div>`:''}<hr style="border-color:var(--border2);margin:8px 0"><div class="rcpt-row"><span>Total pagado</span><span style="color:var(--accent)">${fmt(totalPag)}</span></div>${mora>0?`<div class="rcpt-row"><span style="color:var(--danger)">Mora</span><span style="color:var(--danger)">${fmt(mora)}</span></div>`:''}<div class="rcpt-row"><span>Cuotas restantes</span><span>${getCuotasPend(p)}</span></div><div style="border:1px solid var(--warn);border-radius:8px;padding:8px 10px;margin-top:8px;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:11px;color:var(--text2)">SALDO PENDIENTE</span><span style="font-size:16px;font-weight:800;font-family:'JetBrains Mono',monospace;color:var(--warn)">${fmt(saldo)}</span></div><div style="text-align:center;font-size:10px;color:var(--text3);margin-top:12px;padding-top:10px;border-top:1px dashed var(--border2);">Desarrollado por DualCore Studio</div></div>`;
   openModal('m-recibo');
 }
 
@@ -935,8 +1028,21 @@ function wireEvents(){
   document.getElementById('btn-print-rep').addEventListener('click',()=>printWin(buildReporte(),'Reporte'));
   document.getElementById('btn-print-rep2').addEventListener('click',()=>printWin(buildReporte(),'Reporte'));
   document.getElementById('btn-print-p').addEventListener('click',()=>{if(currentPid)generarRecibo(currentPid,null);});
+  document.getElementById('btn-cancel-edit-prestamo').addEventListener('click',()=>closeModal('m-edit-prestamo'));
+  document.getElementById('btn-save-edit-prestamo').addEventListener('click',guardarEditPrestamo);
   document.getElementById('btn-back-c').addEventListener('click',goBack);
-  document.getElementById('btn-edit-c').addEventListener('click',()=>{const c=getC(currentCid);document.getElementById('m-cliente-title').textContent='✏️ Editar';document.getElementById('edit-cid').value=c.id;document.getElementById('c-nombre').value=c.nombre||'';document.getElementById('c-tel').value=c.tel||'';document.getElementById('c-cedula').value=c.cedula||'';document.getElementById('c-dir').value=c.dir||'';document.getElementById('c-notas').value=c.notas||'';openModal('m-cliente');});
+  document.getElementById('btn-edit-c').addEventListener('click',()=>{
+    if(!isCobrador())return;
+    const c=getC(currentCid);
+    document.getElementById('m-cliente-title').textContent='✏️ Editar Cliente';
+    document.getElementById('edit-cid').value=c.id;
+    document.getElementById('c-nombre').value=c.nombre||'';
+    document.getElementById('c-tel').value=c.tel||'';
+    document.getElementById('c-cedula').value=c.cedula||'';
+    document.getElementById('c-dir').value=c.dir||'';
+    document.getElementById('c-notas').value=c.notas||'';
+    openModal('m-cliente');
+  });
   document.getElementById('btn-back-p').addEventListener('click',goBack);
   document.getElementById('btn-cancel-cliente').addEventListener('click',()=>closeModal('m-cliente'));
   document.getElementById('btn-save-cliente').addEventListener('click',guardarCliente);
@@ -981,6 +1087,22 @@ function wireEvents(){
     } else if(action==='del-prestamo'){
       e.preventDefault();
       deletePrestamo(id);
+    } else if(action==='edit-prestamo'){
+      e.preventDefault();
+      e.stopPropagation();
+      openEditPrestamo(id);
+    } else if(action==='edit-cliente-list'){
+      e.preventDefault();
+      e.stopPropagation();
+      const c=getC(id);
+      document.getElementById('m-cliente-title').textContent='✏️ Editar Cliente';
+      document.getElementById('edit-cid').value=c.id;
+      document.getElementById('c-nombre').value=c.nombre||'';
+      document.getElementById('c-tel').value=c.tel||'';
+      document.getElementById('c-cedula').value=c.cedula||'';
+      document.getElementById('c-dir').value=c.dir||'';
+      document.getElementById('c-notas').value=c.notas||'';
+      openModal('m-cliente');
     } else if(action==='open-cliente'){
       // Only open if we didn't click a del button inside
       if(!e.target.closest('[data-action="del-cliente"]')) openClienteDet(id);
